@@ -1,9 +1,11 @@
 import React from "react";
 import Nav from "react-bootstrap/Nav";
+import "./cmp_styles/navbar.css";
 
 function Navbar() {
   return (
     <Nav
+      className="navbar"
       activeKey="/home"
       onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
     >
