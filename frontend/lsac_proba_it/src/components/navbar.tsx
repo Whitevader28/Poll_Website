@@ -10,7 +10,12 @@ function Navbar() {
       onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
     >
       <Nav.Item>
-        <Nav.Link href="/home">Active</Nav.Link>
+        <Nav.Link href="#">
+          <img
+            src="src\assets\logo.svg"
+            alt="This is the prettiest logo you have ever seen"
+          />
+        </Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link eventKey="link-1">Link</Nav.Link>

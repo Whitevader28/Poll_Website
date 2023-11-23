@@ -1,3 +1,4 @@
+/* visual bugginess when resizing without, might be due to my laptop integrated graphics*/
 body {
   background-image: url(assets/background_image.png);
   background-size: cover;
