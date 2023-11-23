@@ -23,15 +23,10 @@ function Navbar() {
         </Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <PopupButton
-          name={"Register"}
-          onClick={() => {
-            handleClick(/*aici*/);
-          }}
-        ></PopupButton>
+        <PopupButton name={"Register"} onClick={handleClick}></PopupButton>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link eventKey="link-2">Link</Nav.Link>
+        <PopupButton name={"Login"} onClick={handleClick}></PopupButton>
       </Nav.Item>
     </Nav>
   );

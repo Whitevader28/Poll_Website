@@ -4,11 +4,11 @@ import Button from "react-bootstrap/Button";
 interface Props {
   // we only want to use this button for Login and Register
   name: "Login" | "Register";
-  onClick: () => void;
+  onClick: (value: string) => void;
 }
 
 function PopupButton({ name, onClick }: Props) {
-  return <Button onClick={onClick}>{name}</Button>;
+  return <Button onClick={() => onClick(name)}>{name}</Button>;
 }
 
 export default PopupButton;
