@@ -8,6 +8,8 @@ import Navbar from "react-bootstrap/Navbar";
 import "./cmp_styles/navbar.css";
 import PopupButton from "./PopupButton";
 
+// TODO: implement popup function
+
 function NavbarMain() {
   const handleClick = (name: string) => {
     console.log({ name });
