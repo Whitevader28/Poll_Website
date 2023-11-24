@@ -1,4 +1,24 @@
-.navbar {
+/* Should I import this in every css file? */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
+
+
+/* overwritting bootstrap navbar for shadow */
+.bg-body-tertiary {
     background-color: #FFFFFF;
     box-shadow: 0px 1px 14px 0px #021B2C;
+}
+
+#navbar-buttons {
+    text-align: right;
+    justify-content: flex-end;
+}
+
+#pop-btn {
+    font-family: Inter;
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 27px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #04395E;
 }

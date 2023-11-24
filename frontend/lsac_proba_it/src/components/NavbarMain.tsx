@@ -3,7 +3,6 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 
 // My imports
 import "./cmp_styles/navbar.css";
@@ -14,49 +13,27 @@ function NavbarMain() {
     console.log({ name });
   };
 
-  // Chamge from Nav to Navbar, it has the hamburger menu collapse already integrated
-
-  // return (
-  //   <Nav
-  //     className="navbar"
-  //     activeKey="/home"
-  //     onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
-  //   >
-  //     <Nav.Item className="logo">
-  //       <Nav.Link href="#">
-  // <img
-  //   src="src\assets\logo.svg"
-  //   alt="This is the prettiest logo you have ever seen"
-  // />
-  //       </Nav.Link>
-  //     </Nav.Item>
-  //     <Nav.Item className="btn">
-  // <PopupButton name={"Register"} onClick={handleClick}></PopupButton>
-  //     </Nav.Item>
-  //     <Nav.Item className="btn">
-  // <PopupButton name={"Login"} onClick={handleClick}></PopupButton>
-  //     </Nav.Item>
-  //   </Nav>
-  // );
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
-      <Container>
+      <Container fluid>
         <Navbar.Brand href="#home">
           <img
+            className="logo"
             src="src\assets\logo.svg"
             alt="This is the prettiest logo you have ever seen"
           />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link>
+        <Navbar.Collapse id="navbar-buttons">
+          <Nav className="ml-auto">
+            {/* Used them as Nav.Link to skip styling the hamburger buttons */}
+            <Nav.Link id="pop-btn">
               <PopupButton
                 name={"Register"}
                 onClick={handleClick}
               ></PopupButton>
             </Nav.Link>
-            <Nav.Link>
+            <Nav.Link id="pop-btn">
               <PopupButton name={"Login"} onClick={handleClick}></PopupButton>
             </Nav.Link>
           </Nav>
