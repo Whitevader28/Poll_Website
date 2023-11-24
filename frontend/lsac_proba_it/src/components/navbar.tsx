@@ -8,6 +8,8 @@ function Navbar() {
     console.log({ name });
   };
 
+  // Chamge from Nav to Navbar, it has the hamburger menu collapse already integrated
+
   return (
     <Nav
       className="navbar"
@@ -22,10 +24,10 @@ function Navbar() {
           />
         </Nav.Link>
       </Nav.Item>
-      <Nav.Item>
+      <Nav.Item className="btn">
         <PopupButton name={"Register"} onClick={handleClick}></PopupButton>
       </Nav.Item>
-      <Nav.Item>
+      <Nav.Item className="btn">
         <PopupButton name={"Login"} onClick={handleClick}></PopupButton>
       </Nav.Item>
     </Nav>
