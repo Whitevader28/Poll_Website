@@ -30,7 +30,7 @@
     height: 100%;
     max-width: 500px;
     align-items: center;
-    /* Temoporary bad fix */
+    /* Temoporary bad fix for centering */
     margin-left: 25vw;
     font-weight: bold;
     justify-content: center;
