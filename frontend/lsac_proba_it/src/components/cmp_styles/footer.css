@@ -8,5 +8,6 @@
 }
 
 .link-btn {
-    width: 100%;
+    position: relative;
+    height: 25px;
 }
