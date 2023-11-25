@@ -2,15 +2,14 @@
 import "./App.css";
 import NavbarMain from "./components/NavbarMain";
 import FooterMain from "./components/FooterMain";
-import Container from "react-bootstrap/esm/Container";
+import HeaderText from "./components/HeaderText";
 
 function App() {
   return (
     <>
       <NavbarMain />
-      <div className="content-of-page">
-        <FooterMain />
-      </div>
+      <HeaderText />
+      <FooterMain />
     </>
   );
 }
