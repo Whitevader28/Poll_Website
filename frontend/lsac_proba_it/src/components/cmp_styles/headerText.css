@@ -6,6 +6,7 @@
     height: 30vw;
     max-height: 300px;
     min-height: 200px;
+    justify-content: center;
 }
 
 .headerText {
@@ -20,6 +21,7 @@
     align-items: center;
     margin-left: 50px;
     font-weight: bold;
+    justify-content: center;
 }
 
 .headerContainer {
@@ -27,5 +29,5 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    /* width: 100vw; */
+    width: 100vw;
 }
