@@ -32,7 +32,7 @@ function NavbarMain() {
 
   return (
     <>
-      <Navbar expand="lg" className="bg-body-tertiary">
+      <Navbar expand="lg" className="bg-body-tertiary" id="sticky">
         <Container fluid>
           <Navbar.Brand href="#home">
             <img

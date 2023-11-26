@@ -10,6 +10,7 @@ function App() {
   return (
     <>
       <NavbarMain />
+      <div className="BIG"></div>
       <HeaderText />
       <FooterMain />
     </>
