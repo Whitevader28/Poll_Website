@@ -43,7 +43,7 @@ function PopupForm({ name, toggle }: Props) {
             }}
             type="submit"
           >
-            {name}
+            {name == "Login" ? "Login" : "Create account"}
           </button>
         </form>
         <button onClick={toggle}>Close</button>

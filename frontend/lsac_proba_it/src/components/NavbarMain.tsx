@@ -17,12 +17,17 @@ function NavbarMain() {
   const [register, setRegister] = useState(false);
   const [login, setLogin] = useState(false);
 
-  function togglePop(name: string) {
+  function togglePop(name?: string) {
     if (name == "Login") setLogin(!login);
     if (name == "Register") setRegister(!register);
 
     // depending on the type of button display different form
     console.log({ name });
+  }
+
+  function closePop() {
+    setLogin(false);
+    setRegister(false);
   }
 
   return (
@@ -44,14 +49,14 @@ function NavbarMain() {
                 <PopupButton name="Register" onClick={togglePop}></PopupButton>
                 <div>
                   {register ? (
-                    <PopupForm name="Register" toggle={togglePop} />
+                    <PopupForm name="Register" toggle={closePop} />
                   ) : null}
                 </div>
               </Nav.Link>
               <Nav.Link id="pop-btn">
                 <PopupButton name="Login" onClick={togglePop}></PopupButton>
                 <div>
-                  {login ? <PopupForm name="Login" toggle={togglePop} /> : null}
+                  {login ? <PopupForm name="Login" toggle={closePop} /> : null}
                 </div>
               </Nav.Link>
             </Nav>
