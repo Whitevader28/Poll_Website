@@ -4,6 +4,13 @@ body {
   background-size: cover;
 }
 
+.pageContainer {
+  min-height: 100vw;
+  max-width: 95vw;
+  overflow: hidden;
+}
+
+/* For testing footer and navbar positioning */
 .BIG {
   height: 1000px;
 }

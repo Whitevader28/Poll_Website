@@ -10,8 +10,10 @@ function App() {
   return (
     <>
       <NavbarMain />
-      <div className="BIG"></div>
-      <HeaderText />
+      {/* <div className="BIG"></div> //div used for testing footer and navbar positioning */}
+      <div className="pageContainer">
+        <HeaderText />
+      </div>
       <FooterMain />
     </>
   );
