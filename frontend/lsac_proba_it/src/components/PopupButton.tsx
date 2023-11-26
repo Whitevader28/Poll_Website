@@ -3,6 +3,7 @@ interface Props {
   // we only want to use this button for Login and Register
   name: "Login" | "Register";
   onClick: (value: string) => void;
+  children?: any; // why should i put this here?
 }
 
 function PopupButton({ name, onClick }: Props) {
