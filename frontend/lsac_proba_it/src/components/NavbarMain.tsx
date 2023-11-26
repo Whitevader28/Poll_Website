@@ -11,13 +11,17 @@ import "./cmp_styles/login.css";
 import PopupButton from "./PopupButton";
 import PopupForm from "./PopupForm";
 
-// TODO: implement popup function
+// TODO: style popupForm
 
 function NavbarMain() {
-  const [seen, setSeen] = useState(false);
+  const [register, setRegister] = useState(false);
+  const [login, setLogin] = useState(false);
 
   function togglePop(name: string) {
-    setSeen(!seen);
+    if (name == "Login") setLogin(!login);
+    if (name == "Register") setRegister(!register);
+
+    // depending on the type of button display different form
     console.log({ name });
   }
 
@@ -39,7 +43,7 @@ function NavbarMain() {
               <Nav.Link id="pop-btn">
                 <PopupButton name="Register" onClick={togglePop}></PopupButton>
                 <div>
-                  {seen ? (
+                  {register ? (
                     <PopupForm name="Register" toggle={togglePop} />
                   ) : null}
                 </div>
@@ -47,7 +51,7 @@ function NavbarMain() {
               <Nav.Link id="pop-btn">
                 <PopupButton name="Login" onClick={togglePop}></PopupButton>
                 <div>
-                  {seen ? <PopupForm name="Login" toggle={togglePop} /> : null}
+                  {login ? <PopupForm name="Login" toggle={togglePop} /> : null}
                 </div>
               </Nav.Link>
             </Nav>

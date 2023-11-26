@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 interface Props {
-  name: "Login" | "Register";
+  name: "Register" | "Login";
   toggle: any;
 }
 
@@ -10,6 +10,7 @@ function PopupForm({ name, toggle }: Props) {
   const [password, setPassword] = useState("");
 
   function handleLogin(e: any) {
+    console.log(name);
     e.preventDefault();
     // Code to handle login goes here
     toggle();
@@ -36,7 +37,14 @@ function PopupForm({ name, toggle }: Props) {
               onChange={(e) => setPassword(e.target.value)}
             />
           </label>
-          <button type="submit">{name}</button>
+          <button
+            onClick={() => {
+              console.log(name);
+            }}
+            type="submit"
+          >
+            {name}
+          </button>
         </form>
         <button onClick={toggle}>Close</button>
       </div>
