@@ -7,9 +7,9 @@ import { useState } from "react";
 
 // My imports
 import "./cmp_styles/navbar.css";
-import Login from "./Login";
 import "./cmp_styles/login.css";
 import PopupButton from "./PopupButton";
+import PopupForm from "./PopupForm";
 
 // TODO: implement popup function
 
@@ -37,16 +37,18 @@ function NavbarMain() {
             <Nav className="ml-auto">
               {/* Used them as Nav.Link to skip styling the hamburger buttons */}
               <Nav.Link id="pop-btn">
-                <PopupButton
-                  name={"Register"}
-                  onClick={togglePop}
-                ></PopupButton>
+                <PopupButton name="Register" onClick={togglePop}></PopupButton>
+                <div>
+                  {seen ? (
+                    <PopupForm name="Register" toggle={togglePop} />
+                  ) : null}
+                </div>
               </Nav.Link>
               <Nav.Link id="pop-btn">
-                <PopupButton name="Login" onClick={togglePop}>
-                  Login
-                </PopupButton>
-                <div>{seen ? <Login toggle={togglePop} /> : null}</div>
+                <PopupButton name="Login" onClick={togglePop}></PopupButton>
+                <div>
+                  {seen ? <PopupForm name="Login" toggle={togglePop} /> : null}
+                </div>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

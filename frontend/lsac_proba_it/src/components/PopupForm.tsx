@@ -1,19 +1,24 @@
 import { useState } from "react";
 
-function Login(props: any) {
+interface Props {
+  name: "Login" | "Register";
+  toggle: any;
+}
+
+function PopupForm({ name, toggle }: Props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   function handleLogin(e: any) {
     e.preventDefault();
     // Code to handle login goes here
-    props.toggle();
+    toggle();
   }
 
   return (
     <div className="popup">
       <div className="popup-inner">
-        <h2>Login</h2>
+        <h2>{name}</h2>
         <form onSubmit={handleLogin}>
           <label>
             Username:
@@ -31,12 +36,12 @@ function Login(props: any) {
               onChange={(e) => setPassword(e.target.value)}
             />
           </label>
-          <button type="submit">Login</button>
+          <button type="submit">{name}</button>
         </form>
-        <button onClick={props.toggle}>Close</button>
+        <button onClick={toggle}>Close</button>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default PopupForm;
