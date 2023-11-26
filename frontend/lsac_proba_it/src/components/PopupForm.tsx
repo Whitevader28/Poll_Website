@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FormLabel } from "react-bootstrap";
+// import { FormLabel } from "react-bootstrap";
 
 interface Props {
   name: "Register" | "Login";
