@@ -5,8 +5,7 @@ body {
 }
 
 .pageContainer {
-  /* Hacky solution but still room for improvement, footer just  */
-  min-height: 1000px;
+  min-height: 100vh;
   max-width: 95vw;
   overflow: hidden;
 }
