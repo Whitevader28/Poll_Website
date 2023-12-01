@@ -16,7 +16,7 @@ mongoose.connect("mongodb://localhost:27017/test");
 
 async function userExists(email) {
   try {
-    let results = await User.find({ email: email });
+    const results = await User.find({ email: email });
     if (results.length === 0) {
       return false;
     } else {
@@ -30,7 +30,7 @@ async function userExists(email) {
 
 async function pollExists(question, author) {
   try {
-    let results = await Poll.find({ question: question, author: author });
+    const results = await Poll.find({ question: question, author: author });
     if (results.length === 0) {
       return false;
     } else {
@@ -55,7 +55,7 @@ app.post("/register", async (req, res) => {
     const credentials = [email, password, confirmPassword];
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    let doesUserExists = await userExists(email);
+    const doesUserExists = await userExists(email);
 
     if (credentials.includes("")) {
       res.status(202).send("Please fill in all fields");
@@ -64,7 +64,9 @@ app.post("/register", async (req, res) => {
     } else if (doesUserExists) {
       res
         .status(400)
-        .send("Looks like you already have an account, try logging in");
+        .send(
+          "Looks like you already have an account. We already know who you are so try logging in"
+        );
     } else if (password.length < 8) {
       res
         .status(202)
@@ -82,7 +84,6 @@ app.post("/register", async (req, res) => {
         console.log(err);
         res.status(400).send("Error hashing password");
       }
-
       const newUser = new User({
         email: email,
         password: hashedPassword,
@@ -100,14 +101,13 @@ app.post("/register", async (req, res) => {
 
 app.post("/login", async (req, res) => {
   try {
-    let reqBody = req.body;
-
+    const reqBody = req.body;
     const email = reqBody.email;
     const password = reqBody.password;
     const credentials = [email, password];
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    let doesUserExists = await userExists(email);
+    const doesUserExists = await userExists(email);
 
     if (credentials.includes("")) {
       res.status(400).send("Please fill in all fields");
@@ -148,15 +148,16 @@ app.get("/polls", async (req, res) => {
 
 app.post("/vote", async (req, res) => {
   try {
-    let reqBody = req.body;
-    let pollId = reqBody.pollId;
-    let option = reqBody.option;
+    const reqBody = req.body;
+    const voter = reqBody.voter;
+    const pollId = reqBody.pollId;
+    const option = reqBody.option;
 
     Poll.find({ _id: pollId })
       .then((results) => {
-        let votes = results[0].votes;
-        let options = results[0].options;
-        let optionIndex = options.indexOf(option);
+        const votes = results[0].votes;
+        const options = results[0].options;
+        const optionIndex = options.indexOf(option);
         votes[optionIndex] += 1;
         Poll.updateOne({ _id: pollId }, { votes: votes })
           .then(() => {
@@ -209,10 +210,14 @@ app.post("/create-poll", async (req, res) => {
         .status(400)
         .send("You already asked that question. Get some lecithin");
     } else {
+      let optionsArray = [];
+      for (let option of options) {
+        optionsArray.push({ text: option, votes: [] });
+      }
       const newPoll = new Poll({
         author: author,
         question: question,
-        options: options,
+        options: optionsArray,
       });
       newPoll.save();
       res.status(200).send("Success");
