@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model("User", UserSchema);
 
 const PollSchema = new mongoose.Schema({
+    author: String,
     question: String,
     options: Array,
     votes: Array
