@@ -29,7 +29,17 @@ async function userExists(email) {
 }
 
 async function pollExists(question, author) {
-  return false;
+  try {
+    let results = await Poll.find({ question: question, author: author });
+    if (results.length === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
 }
 
 function loggedUser() {
@@ -194,7 +204,7 @@ app.post("/create-poll", async (req, res) => {
       res
         .status(400)
         .send("Whoa there! Put your options on a diet. 10 options max");
-    } else if (pollExists(question, author)) {
+    } else if (await pollExists(question, author)) {
       res
         .status(400)
         .send("You already asked that question. Get some lecithin");
