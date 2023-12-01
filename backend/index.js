@@ -58,6 +58,21 @@ async function pollExistsByQuestion(question, owner) {
   }
 }
 
+async function userVoted(voter, pollId) {
+  try {
+    const results = await Poll.findById(pollId);
+    const votes = results.options.map((option) => option.votes).flat(); // we flatten the array so we avoid to recursively check for the voter in each array of the array
+    if (votes.includes(voter)) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+}
+
 function loggedUser(owner) {
   // check if user is logged in
   return true;
@@ -239,32 +254,35 @@ app.delete("/polls/:id", async (req, res) => {
   }
 });
 
-app.put("/vote", async (req, res) => {
+app.patch("/polls/vote/:id", async (req, res) => {
   try {
     const reqBody = req.body;
-    const voter = reqBody.voter;
-    const pollId = reqBody.pollId;
-    const option = reqBody.option;
+    const voter = reqBody.voter; // this is email
+    const option = reqBody.option; // this is the number of the option, indexed from 0
+    const pollId = req.params.id;
 
-    Poll.find({ _id: pollId })
-      .then((results) => {
-        const votes = results[0].votes;
-        const options = results[0].options;
-        const optionIndex = options.indexOf(option);
-        votes[optionIndex] += 1;
-        Poll.updateOne({ _id: pollId }, { votes: votes })
-          .then(() => {
-            res.status(200).send("Success");
-          })
-          .catch((err) => {
-            console.log(err);
-            res.status(400).send("Error");
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).send("Error");
-      });
+    if (!(await userExists(voter)) || !loggedUser(voter)) {
+      res.status(400).send("Who are you? You cannot vote without logging in");
+    } else if (!(await pollExistsById(pollId))) {
+      res.status(400).send("Poll does not exist. You want to vote the void?");
+    } else if (await userVoted(voter, pollId)) {
+      res
+        .status(400)
+        .send("You already voted. YOU ARE ALLOWED ONLY ONE OPINION");
+    } else {
+      const poll = await Poll.findById(pollId);
+
+      if (option >= poll.options.length || option < 0) {
+        res
+          .status(400)
+          .send(
+            "Option does not exist. You want to vote the endless void? Try again"
+          );
+      } else {
+        poll.options[option].votes.push(voter);
+        res.status(200).send("Voted successfully. Congrats on your opinion!");
+      }
+    }
   } catch (err) {
     console.log(err);
     res.status(500).send("Error");
