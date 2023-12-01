@@ -1,45 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const {User, Poll} = require("./schema");
 
 const app = express();
 const PORT = 5000;
 
 mongoose.connect("mongodb://localhost:27017/test");
 
-const userSchema = new mongoose.Schema({
-    email: String,
-    password: String
-});
-const User = mongoose.model("User", userSchema);
-
-// function userExists(email) {
-//     let doesUserExist = true;
-//     User.find({email: email})
-//     .then((results) => {
-//         if(results.length === 0) {
-//             console.log("User does not exist");
-//             doesUserExist = false;
-//             return false;
-//         } else {
-//             console.log("User exists");
-//             doesUserExist = true; 
-//             return true;
-//         }
-//     })
-//     .catch((err) => {
-//         console.log(err);
-//         return true;
-//     }
-//     );
-//     console.log(doesUserExist);
-//     return doesUserExist;
-// }
-
 async function userExists(email) {
     try {
         let results = await User.find({email: email});
-        console.log(results);
         if (results.length === 0) {
             console.log("User does not exist");
             return false;
@@ -67,8 +38,6 @@ app.post("/register", async (req, res) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     let doesUserExists = await userExists(email);
 
-    console.log(doesUserExists);
-
     if (credentials.includes("")) {
         res.send("Please fill in all fields");
     } else if (!emailRegex.test(email)) {
@@ -93,7 +62,7 @@ app.post("/register", async (req, res) => {
 
 }); 
 
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
     let reqBody = req.body;
 
     const email = reqBody.email;
@@ -101,13 +70,13 @@ app.post("/login", (req, res) => {
     const credentials = [email, password];
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;    
-    let doesUserExists = userExists(email);
+    let doesUserExists = await userExists(email);
     
     if (credentials.includes("")) {
         res.send("Please fill in all fields");
     }else if (!emailRegex.test(email)) {
         res.send("Please enter a valid email");
-    } else if (!userExists(email)) {
+    } else if (!doesUserExists) {
         res.send("User does not exist, try registering");
     } else {
         User.find({email: email})
