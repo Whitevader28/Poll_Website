@@ -16,13 +16,41 @@ mongoose.connect("mongodb://localhost:27017/test");
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
 
-async function userExists(email) {
+async function userExistsByEmail(email) {
   try {
     const results = await User.find({ email: email });
     if (results.length === 0) {
       return false;
     } else {
       return true;
+    }
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+}
+
+async function userExistsById(id) {
+  try {
+    const results = await User.findById(id);
+    if (results == null || results.length === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+}
+
+async function getIdByEmail(email) {
+  try {
+    const results = await User.find({ email: email });
+    if (results == null || results.length === 0) {
+      return null;
+    } else {
+      return results[0]._id;
     }
   } catch (err) {
     console.log(err);
@@ -86,7 +114,7 @@ app.post("/register", async (req, res) => {
     const confirmPassword = reqBody.confirmPassword;
     const credentials = [email, password, confirmPassword];
 
-    const doesUserExists = await userExists(email);
+    const doesUserExists = await userExistsByEmail(email);
 
     if (credentials.includes("")) {
       res.status(202).send("Please fill in all fields");
@@ -141,7 +169,7 @@ app.post("/login", async (req, res) => {
     const password = reqBody.password;
     const credentials = [email, password];
 
-    const doesUserExists = await userExists(email);
+    const doesUserExists = await userExistsByEmail(email);
 
     if (credentials.includes("")) {
       res.status(400).send("Please fill in all fields");
@@ -172,7 +200,7 @@ app.post("/login", async (req, res) => {
 
 app.get("/polls", async (req, res) => {
   try {
-    let data = await Poll.find({});
+    const data = await Poll.find({});
     res.status(200).send(data);
   } catch (err) {
     console.log(err);
@@ -180,14 +208,19 @@ app.get("/polls", async (req, res) => {
   }
 });
 
+// Can have between 3 and 10 options
 app.post("/polls", async (req, res) => {
   try {
     const reqBody = req.body;
+    // TODO: identify owner by id, not email
     const owner = reqBody.owner;
     const question = reqBody.question;
     const options = reqBody.options;
 
-    if (!(await userExists(owner)) || !loggedUser) {
+    const id = await getIdByEmail(owner);
+    console.log(id);
+
+    if (!(await userExistsByEmail(owner)) || !loggedUser) {
       res
         .status(400)
         .send(
@@ -235,7 +268,7 @@ app.delete("/polls/:id", async (req, res) => {
   const owner = reqBody.owner;
   const pollId = req.params.id;
 
-  if (!(await userExists(owner)) || !loggedUser(owner)) {
+  if (!(await userExistsByEmail(owner)) || !loggedUser(owner)) {
     res
       .status(400)
       .send("Who are you? You cannot delete other people's opinions");
@@ -261,7 +294,7 @@ app.patch("/polls/vote/:id", async (req, res) => {
     const option = reqBody.option; // this is the number of the option, indexed from 0
     const pollId = req.params.id;
 
-    if (!(await userExists(voter)) || !loggedUser(voter)) {
+    if (!(await userExistsByEmail(voter)) || !loggedUser(voter)) {
       res.status(400).send("Who are you? You cannot vote without logging in");
     } else if (!(await pollExistsById(pollId))) {
       res.status(400).send("Poll does not exist. You want to vote the void?");
