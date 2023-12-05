@@ -268,6 +268,8 @@ app.delete("/polls/:id", async (req, res) => {
   const owner = reqBody.owner;
   const pollId = req.params.id;
 
+  const ownerId = await getIdByEmail(owner);
+
   if (!(await userExistsByEmail(owner)) || !loggedUser(owner)) {
     res
       .status(400)

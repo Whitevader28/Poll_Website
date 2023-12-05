@@ -16,7 +16,7 @@ function HeaderText() {
           <img
             id="turtle-img"
             alt="coolest makot ever"
-            src="src\assets\testoasa.png"
+            src="src\assets\testoasa 1.svg"
           />
         </div>
       </div>

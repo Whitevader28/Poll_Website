@@ -14,3 +14,8 @@ body {
 .BIG {
   height: 1000px;
 }
+
+.polls-container {
+  height: auto;
+  width: auto;
+}

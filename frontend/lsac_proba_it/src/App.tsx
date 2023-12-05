@@ -3,6 +3,7 @@ import "./App.css";
 import NavbarMain from "./components/NavbarMain";
 import FooterMain from "./components/FooterMain";
 import HeaderText from "./components/HeaderText";
+import Poll from "./components/Poll";
 
 // TODO: Center a div (in header text and footer main)
 
@@ -14,6 +15,7 @@ function App() {
       <div className="pageContainer">
         <HeaderText />
       </div>
+      <Poll />
       <FooterMain />
     </>
   );
