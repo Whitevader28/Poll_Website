@@ -207,7 +207,11 @@ app.post("/login", async (req, res) => {
             res
               .status(200)
               // .send("Logged in successully. You are IN! Go vote")
-              .json({ acessToken: acessToken, user_id: user_id });
+              .json({
+                acessToken: acessToken,
+                user_id: user_id,
+                message: "Logged in successully. You are IN! Go vote",
+              });
           } else {
             res.status(400).send("Incorrect password");
           }

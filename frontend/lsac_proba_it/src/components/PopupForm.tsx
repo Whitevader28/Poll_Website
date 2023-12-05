@@ -1,8 +1,8 @@
 import { useState } from "react";
-// import { FormLabel } from "react-bootstrap";
+import axios from "axios";
 
 interface Props {
-  name: "Register" | "Login";
+  name: "Register" | "Login" | "Create Poll" | "Logout";
   toggle: any;
 }
 
@@ -11,10 +11,70 @@ function PopupForm({ name, toggle }: Props) {
   const [password, setPassword] = useState("");
   const [repass, setRepass] = useState("");
 
-  function handleLogin(e: any) {
-    console.log(name);
+  async function handleLogin(e: any) {
     e.preventDefault();
-    // Code to handle login goes here
+
+    if (name == "Login") {
+      axios
+        .post("http://localhost:5000/login", {
+          email: username,
+          password: password,
+        })
+        .then((response) => {
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("user_id", response.data.user_id);
+          alert(response.data.message);
+          window.location.reload();
+        })
+        .catch((error) => {
+          alert(error.response.data);
+          console.log(error);
+        });
+    } else if (name == "Register") {
+      axios
+        .post("http://localhost:5000/register", {
+          username: username,
+          password: password,
+          repass: repass,
+        })
+        .then((response) => {
+          alert(response.data);
+          console.log(response);
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+          alert(error.response.data);
+        });
+    } else if (name == "Create Poll") {
+      axios
+        .post(
+          "http://localhost:5000/create_poll",
+          {
+            username: localStorage.getItem("username"),
+            question: username,
+            answer1: password,
+            answer2: repass,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response);
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else if (name == "Logout") {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user_id");
+      window.location.reload();
+    }
+
     toggle();
   }
 
@@ -51,7 +111,7 @@ function PopupForm({ name, toggle }: Props) {
               </label>
             ) : null}
           </div>
-          <button type="submit">
+          <button type="submit" onClick={handleLogin}>
             {name == "Login" ? "Login" : "Create account"}
           </button>
         </form>
