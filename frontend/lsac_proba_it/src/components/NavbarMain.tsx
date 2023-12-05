@@ -16,10 +16,21 @@ import PopupForm from "./PopupForm";
 function NavbarMain() {
   const [register, setRegister] = useState(false);
   const [login, setLogin] = useState(false);
+  const [createPoll, setCreatePoll] = useState(false);
+  const [logout, setLogout] = useState(false);
+
+  function isLoggedIn() {
+    return !!localStorage.getItem("token");
+  }
+
+  console.log("login?");
+  console.log(isLoggedIn());
 
   function togglePop(name?: string) {
     if (name == "Login") setLogin(!login);
     if (name == "Register") setRegister(!register);
+    if (name == "Create Poll") setCreatePoll(!createPoll);
+    if (name == "Logout") setLogout(!logout);
 
     // depending on the type of button display different form
     console.log({ name });
@@ -28,6 +39,14 @@ function NavbarMain() {
   function closePop() {
     setLogin(false);
     setRegister(false);
+    setCreatePoll(false);
+    setLogout(false);
+  }
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
+    window.location.reload();
   }
 
   return (
@@ -45,20 +64,49 @@ function NavbarMain() {
           <Navbar.Collapse id="navbar-buttons">
             <Nav className="ml-auto">
               {/* Used them as Nav.Link to skip styling the hamburger buttons */}
-              <Nav.Link id="pop-btn">
-                <PopupButton name="Register" onClick={togglePop}></PopupButton>
-                <div>
-                  {register ? (
-                    <PopupForm name="Register" toggle={closePop} />
-                  ) : null}
-                </div>
-              </Nav.Link>
-              <Nav.Link id="pop-btn">
-                <PopupButton name="Login" onClick={togglePop}></PopupButton>
-                <div>
-                  {login ? <PopupForm name="Login" toggle={closePop} /> : null}
-                </div>
-              </Nav.Link>
+              {isLoggedIn() ? (
+                <>
+                  <Nav.Link id="pop-btn">
+                    <PopupButton
+                      name="Create Poll"
+                      onClick={togglePop}
+                    ></PopupButton>
+                    <div>
+                      {createPoll ? (
+                        <PopupForm name="Create Poll" toggle={closePop} />
+                      ) : null}
+                    </div>
+                  </Nav.Link>
+                  <Nav.Link id="pop-btn">
+                    <PopupButton
+                      name="Logout"
+                      onClick={handleLogout}
+                    ></PopupButton>
+                  </Nav.Link>
+                </>
+              ) : (
+                <>
+                  <Nav.Link id="pop-btn">
+                    <PopupButton
+                      name="Register"
+                      onClick={togglePop}
+                    ></PopupButton>
+                    <div>
+                      {register ? (
+                        <PopupForm name="Register" toggle={closePop} />
+                      ) : null}
+                    </div>
+                  </Nav.Link>
+                  <Nav.Link id="pop-btn">
+                    <PopupButton name="Login" onClick={togglePop}></PopupButton>
+                    <div>
+                      {login ? (
+                        <PopupForm name="Login" toggle={closePop} />
+                      ) : null}
+                    </div>
+                  </Nav.Link>
+                </>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
