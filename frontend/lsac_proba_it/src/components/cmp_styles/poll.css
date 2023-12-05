@@ -30,17 +30,29 @@
 .radio-form {
     display: flex;
     flex-direction: column;
+    gap: 15px;
     justify-content: space-between;
     align-items: left;
 }
 
 .radio-form-btn {
+    margin-top: 30px;
     max-width: 30%;
     color: #FFFFFF;
     min-width: 25%;
     align-self: flex-end;
     background-color: #04395E;
     border-radius: 5px;
+}
+
+.form-btn-div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.invisible {
+    visibility: hidden;
 }
 
 @media (max-width: 600px) {
