@@ -38,32 +38,36 @@ function Poll() {
   return (
     <>
       <div className="poll-body">
-        {/* {polls.map((poll, index) => (
-          <div key={index}>
+        {polls.map((poll, index) => (
+          <div className="individual-poll" key={index}>
             <form>
-              <label>
-                <input name={poll._id} type="radio" value={poll.option[0]} />
-                {poll.option1}
-              </label>
-              <label>
-                <input
-                  name={poll.poll._id}
-                  type="radio"
-                  value={poll.option[1]}
-                />
-                {poll.options[1]}
-              </label>
-              <div className="form-btn-div">
-                <button className="radio-form-btn" type="button">
-                  Delete
-                </button>
-                <button className="radio-form-btn" type="submit">
-                  Vote
-                </button>
+              <div className="radio-form">
+                <div className="question">
+                  <strong>{poll.question}</strong>
+                </div>
+                <p className="make-a-choice">Make a choice</p>
+                {poll.options.map((option: any) => (
+                  <label>
+                    <input name={poll._id} type="radio" value={option.text} />
+                    {option.text}
+                  </label>
+                ))}
+                <div className="form-btn-div">
+                  <button className="radio-form-btn" type="button">
+                    Delete
+                  </button>
+                  <button className="radio-form-btn" type="submit">
+                    Vote
+                  </button>
+                </div>
               </div>
             </form>
           </div>
-        ))} */}
+        ))}
+        {/* {polls.map((poll) => {
+          console.log(poll.options[0].text);
+          console.log("It works!!");
+        })} */}
       </div>
     </>
   );

@@ -2,6 +2,10 @@
     font-size: small;
 }
 
+.poll-question {
+    font-weight: bold;
+}
+
 .poll-body {
     display: flex;
     flex-wrap: wrap;
