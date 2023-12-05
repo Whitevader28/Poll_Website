@@ -18,7 +18,9 @@ function Poll() {
     <>
       <div className="poll-body">
         <div className="individual-poll">
-          <div className="question-text">{question}</div>
+          <div className="question-text">
+            <strong>{question}</strong>
+          </div>
           <p className="make-a-choice">Make a choice:</p>
           <form onSubmit={handleVote} className="radio-form">
             <label>

@@ -1,3 +1,7 @@
+.make-a-choice {
+    font-size: small;
+}
+
 .poll-body {
     display: flex;
     flex-wrap: wrap;
