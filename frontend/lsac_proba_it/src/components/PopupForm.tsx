@@ -39,7 +39,6 @@ function PopupForm({ name, toggle }: Props) {
         })
         .then((response) => {
           alert(response.data);
-          console.log(response);
           window.location.reload();
         })
         .catch((error) => {
@@ -63,6 +62,7 @@ function PopupForm({ name, toggle }: Props) {
           }
         )
         .then((response) => {
+          alert(response.data);
           console.log(response);
           window.location.reload();
         })
@@ -70,9 +70,14 @@ function PopupForm({ name, toggle }: Props) {
           console.log(error);
         });
     } else if (name == "Logout") {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user_id");
-      window.location.reload();
+      try {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user_id");
+        alert("You are out!");
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     toggle();

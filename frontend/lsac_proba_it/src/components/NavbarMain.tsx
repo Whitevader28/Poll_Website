@@ -23,17 +23,11 @@ function NavbarMain() {
     return !!localStorage.getItem("token");
   }
 
-  console.log("login?");
-  console.log(isLoggedIn());
-
   function togglePop(name?: string) {
     if (name == "Login") setLogin(!login);
     if (name == "Register") setRegister(!register);
     if (name == "Create Poll") setCreatePoll(!createPoll);
     if (name == "Logout") setLogout(!logout);
-
-    // depending on the type of button display different form
-    console.log({ name });
   }
 
   function closePop() {

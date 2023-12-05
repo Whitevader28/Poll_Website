@@ -317,7 +317,7 @@ app.delete("/polls/:id", authenticateToken, async (req, res) => {
   }
 });
 
-app.patch("/polls/vote/:id", authenticateToken, async (req, res) => {
+app.patch("/polls/vote/:id", async (req, res) => {
   try {
     const reqBody = req.body;
     const voter = reqBody.voter; // this is email

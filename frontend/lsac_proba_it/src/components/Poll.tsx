@@ -5,6 +5,7 @@ import "./cmp_styles/poll.css";
 
 function Poll() {
   const [polls, setPolls] = useState([]);
+  const [vote_poll_id, setVotePollId] = useState("");
 
   const [loadedPolls, setLoadedPolls] = useState(false);
 
@@ -20,22 +21,23 @@ function Poll() {
       });
   }
 
-  console.log(polls);
-
   function handleVote(e: any) {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const selectedOption = formData.get(pollID1); // this isn't working just temp fix
-    console.log(selectedOption);
+    const selectedOption = formData.get(vote_poll_id);
+    alert(selectedOption);
+
+    axios.post("http://localhost:5000/vote", {
+      // TODO: implement vote
+    });
   }
-  const pollID1 = "1";
 
   return (
     <>
       <div className="poll-body">
         {polls.map((poll, index) => (
           <div className="individual-poll" key={index}>
-            <form>
+            <form onSubmit={handleVote}>
               <div className="radio-form">
                 <div className="question">
                   <strong>{poll.question}</strong>
@@ -51,7 +53,13 @@ function Poll() {
                   <button className="radio-form-btn" type="button">
                     Delete
                   </button>
-                  <button className="radio-form-btn" type="submit">
+                  <button
+                    className="radio-form-btn"
+                    type="submit"
+                    onClick={() => {
+                      setVotePollId(poll._id);
+                    }}
+                  >
                     Vote
                   </button>
                 </div>
