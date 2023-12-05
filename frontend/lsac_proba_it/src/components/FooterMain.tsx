@@ -15,7 +15,7 @@ function FooterMain() {
           </a>
           <a href="https://www.facebook.com/LsacBucuresti">
             <img
-              className="link-btn"
+              className="link-btn center-btn"
               src="src\assets\uil_facebook.svg"
               alt="Follow on insta"
             />

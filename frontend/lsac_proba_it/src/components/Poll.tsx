@@ -4,29 +4,30 @@ function Poll() {
     console.log("wiiiiii");
   }
 
+  const pollID = "1";
+
   return (
-    // <div className="poll-body">
-    //   <div>
-    //     <div className="question-text"></div>
-    //     <form action="">
-    //       <label htmlFor="input">
-    //         <input type="radio">Option 1</input>
-    //         <input type="radio">Option 2</input>
-    //         <button type="submit" value="Vote">
-    //           Vote
-    //         </button>
-    //       </label>
-    //     </form>
-    //   </div>
-    // </div>
-    <form onSubmit={handleVote}>
-      {/* <input type="radio">Option 1</input>
-      <input type="radio">Option 2</input> */}
-      <button type="submit" value="Vote">
-        Vote
-      </button>
+    <>
+      <div className="poll-body">
+        <div>
+          <div className="question-text"></div>
+          <form action="">
+            <label>
+              <input name={pollID} type="radio" value="Option1" />
+              Option 1
+            </label>
+            <label>
+              <input name={pollID} type="radio" value="Option1" />
+              Option 2
+              <button type="submit" value="Vote">
+                Vote
+              </button>
+            </label>
+          </form>
+        </div>
+      </div>
       <p>This</p>
-    </form>
+    </>
   );
 }
 
