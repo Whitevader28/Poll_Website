@@ -51,12 +51,7 @@ function PopupForm({ name, toggle }: Props) {
               </label>
             ) : null}
           </div>
-          <button
-            onClick={() => {
-              console.log(name);
-            }}
-            type="submit"
-          >
+          <button type="submit">
             {name == "Login" ? "Login" : "Create account"}
           </button>
         </form>
