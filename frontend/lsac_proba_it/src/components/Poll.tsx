@@ -30,11 +30,6 @@ function Poll() {
   }
   const pollID1 = "1";
 
-  // polls.map((poll, index) => {
-  //   console.log(poll.options[0]);
-  //   console.log(index);
-  // });
-
   return (
     <>
       <div className="poll-body">
@@ -64,10 +59,6 @@ function Poll() {
             </form>
           </div>
         ))}
-        {/* {polls.map((poll) => {
-          console.log(poll.options[0].text);
-          console.log("It works!!");
-        })} */}
       </div>
     </>
   );

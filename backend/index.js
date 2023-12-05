@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -5,6 +7,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const { User, Poll } = require("./schema");
+
+const secretKey = "";
 
 const app = express();
 const PORT = 5000;
@@ -106,6 +110,19 @@ function loggedUser(owner) {
   return true;
 }
 
+function authenticateToken(res, req, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (token == null)
+    res.status(401).send("Please login to vote or delete or whatever you want");
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.status(403).send("Invalid token");
+    req.user = user;
+    next();
+  });
+}
+
 app.post("/register", async (req, res) => {
   try {
     const reqBody = req.body;
@@ -182,7 +199,15 @@ app.post("/login", async (req, res) => {
         .then(async (results) => {
           const passMatch = await bcrypt.compare(password, results[0].password);
           if (passMatch) {
-            res.status(200).send("Logged in successully. You are IN! Go vote");
+            const user_id = results[0]._id.toString();
+            const acessToken = jwt.sign(
+              user_id,
+              process.env.ACCESS_TOKEN_SECRET
+            );
+            res
+              .status(200)
+              // .send("Logged in successully. You are IN! Go vote")
+              .json({ acessToken: acessToken, user_id: user_id });
           } else {
             res.status(400).send("Incorrect password");
           }
@@ -208,7 +233,6 @@ app.get("/polls", async (req, res) => {
   }
 });
 
-// Can have between 3 and 10 options
 app.post("/polls", async (req, res) => {
   try {
     const reqBody = req.body;
@@ -263,7 +287,7 @@ app.post("/polls", async (req, res) => {
   }
 });
 
-app.delete("/polls/:id", async (req, res) => {
+app.delete("/polls/:id", authenticateToken, async (req, res) => {
   const reqBody = req.body;
   const owner = reqBody.owner;
   const pollId = req.params.id;
@@ -289,7 +313,7 @@ app.delete("/polls/:id", async (req, res) => {
   }
 });
 
-app.patch("/polls/vote/:id", async (req, res) => {
+app.patch("/polls/vote/:id", authenticateToken, async (req, res) => {
   try {
     const reqBody = req.body;
     const voter = reqBody.voter; // this is email
