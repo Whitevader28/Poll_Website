@@ -1,19 +1,20 @@
-.link-btn-container {
+/* .link-btn-container {
     position: relative;
     align-self: center;
     display: flex;
     align-items: end;
     margin-left: 38vw;
 }
-
+ */
 
 .link-btn {
     margin-top: 4px;
     position: relative;
     height: 5vw;
     max-height: 47px;
+    justify-content: center;
     /* align-items: center; */
-    margin-right: 7vw;
+    /* margin-right: 7vw; */
 }
 
 #my-footer {
@@ -21,5 +22,5 @@
     bottom: 0;
     width: 100%;
     height: 55px;
-    padding: 12px, 56.17px, 11.17px, 49px;
+    /* padding: 12px, 56.17px, 11.17px, 49px; */
 }

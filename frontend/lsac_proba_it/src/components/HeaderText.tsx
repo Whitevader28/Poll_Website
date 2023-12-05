@@ -9,7 +9,7 @@ function HeaderText() {
           <p>
             Opiniile sunt mai importante ca niciodată. Platformele de sondaje
             permit organizatorilor să culeagă feedback direct de la audiența lor
-            și să înțeleagă mai bine nevoile și dorințele acesteia.
+            și să înțeleagă mai bine nevoile și dorințele acesteia.
           </p>
         </div>
         <div className="headerImage">
