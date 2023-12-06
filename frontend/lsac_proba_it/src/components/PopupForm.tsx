@@ -147,7 +147,9 @@ function PopupForm({ name, toggle }: Props) {
                 placeholder="Option 2"
                 type="text"
                 value={options[1]}
-                onChange={(e) => setOptions([options[0], e.target.value])}
+                onChange={(e) =>
+                  setOptions([options[0], e.target.value, options[2]])
+                }
               />
             </label>
             <label>
