@@ -304,6 +304,7 @@ app.post("/polls", async (req, res) => {
 });
 
 app.delete("/polls/:id", async (req, res) => {
+  s;
   const reqBody = req.body;
   const owner = req.query.owner;
   const pollId = req.params.id;

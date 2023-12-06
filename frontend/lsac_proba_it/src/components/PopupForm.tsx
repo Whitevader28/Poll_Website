@@ -46,32 +46,8 @@ function PopupForm({ name, toggle }: Props) {
           window.location.reload();
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response.data);
           alert(error.response.data);
-        });
-    } else if (name == "Create Poll") {
-      axios
-        .post(
-          "http://localhost:5000/create_poll",
-          {
-            username: localStorage.getItem("username"),
-            question: username,
-            answer1: password,
-            answer2: repass,
-          },
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        )
-        .then((response) => {
-          alert(response.data);
-          console.log(response);
-          window.location.reload();
-        })
-        .catch((error) => {
-          console.log(error);
         });
     } else if (name == "Logout") {
       try {
@@ -89,8 +65,6 @@ function PopupForm({ name, toggle }: Props) {
 
   async function handleCreatePoll(e: any) {
     e.preventDefault();
-    console.log(title);
-    console.log(options);
 
     axios
       .post("http://localhost:5000/polls", {
@@ -103,6 +77,7 @@ function PopupForm({ name, toggle }: Props) {
         window.location.reload();
       })
       .catch((error) => {
+        alert(error.response.data);
         console.log("There was an error", error);
       });
   }

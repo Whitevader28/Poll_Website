@@ -6,7 +6,6 @@ import HeaderText from "./components/HeaderText";
 import Poll from "./components/Poll";
 
 // TODO: Style the popup login
-// TODO: Implement the create poll functionality
 // TODO: enjoy the rest of your day
 
 function App() {
