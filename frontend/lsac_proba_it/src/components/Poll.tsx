@@ -7,19 +7,14 @@ function Poll() {
   const [polls, setPolls] = useState([]);
   const [vote_poll_id, setVotePollId] = useState("");
 
-  const [loadedPolls, setLoadedPolls] = useState(false);
-
-  if (!loadedPolls) {
-    setLoadedPolls(true);
-    axios
-      .get("http://localhost:5000/polls")
-      .then((response) => {
-        setPolls(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
-  }
+  axios
+    .get("http://localhost:5000/polls")
+    .then((response) => {
+      setPolls(response.data);
+    })
+    .catch((error) => {
+      console.error("There was an error!", error);
+    });
 
   function handleVote(e: any) {
     e.preventDefault();
@@ -40,6 +35,8 @@ function Poll() {
         console.log("There was an error!", error);
       });
   }
+
+  function handleDelete(e: any) {}
 
   return (
     <>
