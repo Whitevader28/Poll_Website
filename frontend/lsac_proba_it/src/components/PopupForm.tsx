@@ -37,7 +37,7 @@ function PopupForm({ name, toggle }: Props) {
     } else if (name == "Register") {
       axios
         .post("http://localhost:5000/register", {
-          username: username,
+          email: username,
           password: password,
           repass: repass,
         })
