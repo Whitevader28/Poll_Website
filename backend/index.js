@@ -105,6 +105,17 @@ async function userVoted(voter, pollId) {
   }
 }
 
+async function getIndexByOptionName(pollId, option_name) {
+  try {
+    const results = await Poll.findById(pollId);
+    const options = results.options.map((option) => option.text);
+    return options.indexOf(option_name);
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+}
+
 function loggedUser(owner) {
   // check if user is logged in
   return true;
@@ -210,6 +221,7 @@ app.post("/login", async (req, res) => {
               .json({
                 acessToken: acessToken,
                 user_id: user_id,
+                user_email: email,
                 message: "Logged in successully. You are IN! Go vote",
               });
           } else {
@@ -321,8 +333,10 @@ app.patch("/polls/vote/:id", async (req, res) => {
   try {
     const reqBody = req.body;
     const voter = reqBody.voter; // this is email
-    const option = reqBody.option; // this is the number of the option, indexed from 0
+    const option_name = reqBody.option; // this is the number of the option, indexed from 0
     const pollId = req.params.id;
+
+    const option = await getIndexByOptionName(pollId, option_name);
 
     if (!(await userExistsByEmail(voter)) || !loggedUser(voter)) {
       res.status(400).send("Who are you? You cannot vote without logging in");
@@ -343,6 +357,7 @@ app.patch("/polls/vote/:id", async (req, res) => {
           );
       } else {
         poll.options[option].votes.push(voter);
+        await poll.save();
         res.status(200).send("Voted successfully. Congrats on your opinion!");
       }
     }

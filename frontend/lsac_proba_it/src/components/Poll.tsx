@@ -25,11 +25,20 @@ function Poll() {
     e.preventDefault();
     const formData = new FormData(e.target);
     const selectedOption = formData.get(vote_poll_id);
-    alert(selectedOption);
 
-    axios.post("http://localhost:5000/vote", {
-      // TODO: implement vote
-    });
+    axios
+      .patch(`http://localhost:5000/polls/vote/${vote_poll_id}`, {
+        option: selectedOption,
+        voter: localStorage.getItem("user_email"),
+      })
+      .then((response) => {
+        alert(response.data);
+        window.location.reload();
+      })
+      .catch((error) => {
+        alert(error.response.data);
+        console.log("There was an error!", error);
+      });
   }
 
   return (
@@ -50,9 +59,28 @@ function Poll() {
                   </label>
                 ))}
                 <div className="form-btn-div">
-                  <button className="radio-form-btn" type="button">
-                    Delete
-                  </button>
+                  {(() => {
+                    if (poll.owner == localStorage.getItem("user_email")) {
+                      return (
+                        <>
+                          <button className="radio-form-btn" type="button">
+                            Delete
+                          </button>
+                        </>
+                      );
+                    } else {
+                      return (
+                        <>
+                          <button
+                            className="radio-form-btn invisible"
+                            type="button"
+                          >
+                            Delete
+                          </button>
+                        </>
+                      );
+                    }
+                  })()}
                   <button
                     className="radio-form-btn"
                     type="submit"

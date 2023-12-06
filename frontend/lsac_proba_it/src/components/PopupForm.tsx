@@ -23,6 +23,7 @@ function PopupForm({ name, toggle }: Props) {
         .then((response) => {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("user_id", response.data.user_id);
+          localStorage.setItem("user_email", response.data.user_email);
           alert(response.data.message);
           window.location.reload();
         })
