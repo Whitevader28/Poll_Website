@@ -7,8 +7,6 @@ import Poll from "./components/Poll";
 
 // TODO: Style the popup login
 // TODO: Implement the create poll functionality
-// TODO: Implement the delete poll functionality
-// TODO: Implement the vote functionality
 // TODO: enjoy the rest of your day
 
 function App() {
