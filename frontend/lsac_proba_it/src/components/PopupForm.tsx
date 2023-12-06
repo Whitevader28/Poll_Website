@@ -49,15 +49,6 @@ function PopupForm({ name, toggle }: Props) {
           console.log(error.response.data);
           alert(error.response.data);
         });
-    } else if (name == "Logout") {
-      try {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user_id");
-        alert("You are out!");
-        window.location.reload();
-      } catch (error) {
-        console.log(error);
-      }
     }
 
     toggle();
@@ -127,7 +118,10 @@ function PopupForm({ name, toggle }: Props) {
                 placeholder="Type your question here"
                 type="text"
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                  console.log(e.target.value);
+                }}
               />
             </label>
             {/* TODO: add radiobutton for type of question, but I only have single answer question */}

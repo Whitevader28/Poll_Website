@@ -40,6 +40,8 @@ function NavbarMain() {
   function handleLogout() {
     localStorage.removeItem("token");
     localStorage.removeItem("user_id");
+    localStorage.removeItem("user_email");
+    alert("You are OUT!");
     window.location.reload();
   }
 

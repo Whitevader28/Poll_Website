@@ -8,6 +8,10 @@ function Poll() {
   const [vote_poll_id, setVotePollId] = useState("");
   const [delete_poll_id, setDeletePollId] = useState("");
 
+  function isLoggedIn() {
+    return !!localStorage.getItem("token");
+  }
+
   useEffect(() => {
     axios
       .get("http://localhost:5000/polls")
@@ -77,7 +81,11 @@ function Poll() {
                 ))}
                 <div className="form-btn-div">
                   {(() => {
-                    if (poll.owner == localStorage.getItem("user_email")) {
+                    if (poll.owner === localStorage.getItem("user_email")) {
+                      console.log(
+                        poll.owner,
+                        localStorage.getItem("user_email")
+                      );
                       return (
                         <>
                           <button
@@ -104,15 +112,37 @@ function Poll() {
                       );
                     }
                   })()}
-                  <button
-                    className="radio-form-btn"
-                    type="submit"
-                    onClick={() => {
-                      setVotePollId(poll._id);
-                    }}
-                  >
-                    Vote
-                  </button>
+                  {(() => {
+                    if (isLoggedIn()) {
+                      return (
+                        <>
+                          <button
+                            className="radio-form-btn"
+                            type="submit"
+                            onClick={() => {
+                              setVotePollId(poll._id);
+                            }}
+                          >
+                            Vote
+                          </button>
+                        </>
+                      );
+                    } else {
+                      return (
+                        <>
+                          <button
+                            className="radio-form-btn invisible"
+                            type="submit"
+                            onClick={() => {
+                              setVotePollId(poll._id);
+                            }}
+                          >
+                            Vote
+                          </button>
+                        </>
+                      );
+                    }
+                  })()}
                 </div>
               </div>
             </form>
