@@ -5,7 +5,8 @@ import FooterMain from "./components/FooterMain";
 import HeaderText from "./components/HeaderText";
 import Poll from "./components/Poll";
 
-// TODO: Style the popup login
+// TODO: style the popup login
+// TODO: add show password button
 // TODO: enjoy the rest of your day
 
 function App() {

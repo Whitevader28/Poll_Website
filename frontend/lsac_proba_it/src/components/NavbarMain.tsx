@@ -47,7 +47,7 @@ function NavbarMain() {
     <>
       <Navbar expand="lg" className="bg-body-tertiary" id="sticky">
         <Container fluid>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="#">
             <img
               className="logo"
               src="src\assets\logo.svg"
