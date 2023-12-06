@@ -11,6 +11,9 @@ function PopupForm({ name, toggle }: Props) {
   const [password, setPassword] = useState("");
   const [repass, setRepass] = useState("");
 
+  const [title, setTitle] = useState("");
+  const [option1, setOption1] = useState([]);
+
   async function handleLogin(e: any) {
     e.preventDefault();
 
@@ -83,6 +86,8 @@ function PopupForm({ name, toggle }: Props) {
 
     toggle();
   }
+
+  async function handleCreatePoll(e: any) {}
 
   return (
     <div className="popup">

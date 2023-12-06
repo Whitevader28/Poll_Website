@@ -3,7 +3,8 @@ body {
   margin: 0;
   padding: 0;
   background-image: url(assets/background_image.png);
-  background-size: cover;
+  background-size: 100vw;
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   justify-content: center;
