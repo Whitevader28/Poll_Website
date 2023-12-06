@@ -19,30 +19,30 @@ Front-endul este structurat in 6 componente:
 
 #### Navbarmain
 
-    Este navbarul paginii. Contine logoul site-ului care este tot o data un buton de "mergi la inceput".
-    Contine si butoanele de Register si Login, respectiv de Create Poll si Logout si le schimba dinamic in functie de starea utilizatorului (logat sau nelogoat).
-    Navbarul este sticky, astfel ca utilizatorul poate interactiona cu el oriunde se afla pe pagina.
+Este navbarul paginii. Contine logoul site-ului care este tot o data un buton de "mergi la inceput".
+Contine si butoanele de Register si Login, respectiv de Create Poll si Logout si le schimba dinamic in functie de starea utilizatorului (logat sau nelogoat).
+Navbarul este sticky, astfel ca utilizatorul poate interactiona cu el oriunde se afla pe pagina.
 
 #### PopupButton
 
-    Butoanele de Register si Login, respectiv de Create Poll si Logout sunt componente de acest fel. Primesc drept props numele butonului pe care vrem sa il randeze si in functie de acesta fiecare va avea o functionalitate diferita.
-    Pentru Logout se sterg informatiile salvate in local storage, iar pentru celelalte se afiseaza un popup corespunzator numelui
+Butoanele de Register si Login, respectiv de Create Poll si Logout sunt componente de acest fel. Primesc drept props numele butonului pe care vrem sa il randeze si in functie de acesta fiecare va avea o functionalitate diferita.
+Pentru Logout se sterg informatiile salvate in local storage, iar pentru celelalte se afiseaza un popup corespunzator numelui
 
 #### PopupForm
 
-    In functie de PopupButton-ul apasat va aparea o componenta PopupForm pentru a completa formurarul de register, login sau creare de opinatator5000
+In functie de PopupButton-ul apasat va aparea o componenta PopupForm pentru a completa formurarul de register, login sau creare de opinatator5000
 
 #### HeaderText
 
-    Contine motivatia din spatele aplicatiei si mascota unui programator. Nu e mereu despre cat de repede te misti, ci despre cat de repede si bine gandesti.
+Contine motivatia din spatele aplicatiei si mascota unui programator. Nu e mereu despre cat de repede te misti, ci despre cat de repede si bine gandesti.
 
 #### FooterMain
 
-    Locul in care poti afla mai multe despre LSAC
+Locul in care poti afla mai multe despre LSAC
 
 #### Poll
 
-    Componenta are rolul de a incarca dinamic opiniatoarele5000 aflate in baza de date si de a oferi functionalitatea de opinare si stergere asupra acestora.
+Componenta are rolul de a incarca dinamic opiniatoarele5000 aflate in baza de date si de a oferi functionalitatea de opinare si stergere asupra acestora.
 
 ### Back-end
 
