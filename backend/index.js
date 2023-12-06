@@ -138,7 +138,6 @@ app.post("/register", async (req, res) => {
   try {
     const reqBody = req.body;
     const email = reqBody.email;
-    console.log(email);
     const password = reqBody.password;
     const confirmPassword = reqBody.confirmPassword;
     const credentials = [email, password, confirmPassword];
