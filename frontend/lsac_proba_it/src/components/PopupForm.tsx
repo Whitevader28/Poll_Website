@@ -12,7 +12,7 @@ function PopupForm({ name, toggle }: Props) {
   const [repass, setRepass] = useState("");
 
   const [title, setTitle] = useState("");
-  const [option1, setOption1] = useState([]);
+  const [options, setOptions] = useState(["", "", ""]);
 
   async function handleLogin(e: any) {
     e.preventDefault();
@@ -87,45 +87,110 @@ function PopupForm({ name, toggle }: Props) {
     toggle();
   }
 
-  async function handleCreatePoll(e: any) {}
+  async function handleCreatePoll(e: any) {
+    e.preventDefault();
+    console.log(title);
+    console.log(options);
+
+    axios
+      .post("http://localhost:5000/polls", {
+        owner: localStorage.getItem("user_email"),
+        question: title,
+        options: options,
+      })
+      .then((response) => {
+        alert(response.data);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log("There was an error", error);
+      });
+  }
 
   return (
     <div className="popup">
       <div className="popup-inner">
         <h2>{name}</h2>
-        <form onSubmit={handleLogin}>
-          <label>
-            <input
-              placeholder="Email"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </label>
-          <label>
-            <input
-              placeholder="Password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          <div>
-            {name == "Register" ? (
-              <label>
-                <input
-                  placeholder="Confirm Password"
-                  type="password"
-                  value={repass}
-                  onChange={(e) => setRepass(e.target.value)}
-                ></input>
-              </label>
-            ) : null}
-          </div>
-          <button type="submit" onClick={handleLogin}>
-            {name == "Login" ? "Login" : "Create account"}
-          </button>
-        </form>
+        {name == "Register" || name == "Login" ? (
+          <form onSubmit={handleLogin}>
+            <label>
+              <input
+                placeholder="Email"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </label>
+            <label>
+              <input
+                placeholder="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </label>
+            <div>
+              {name == "Register" ? (
+                <label>
+                  <input
+                    placeholder="Confirm Password"
+                    type="password"
+                    value={repass}
+                    onChange={(e) => setRepass(e.target.value)}
+                  ></input>
+                </label>
+              ) : null}
+            </div>
+            <button type="submit" onClick={handleLogin}>
+              {name == "Login" ? "Login" : "Create account"}
+            </button>
+          </form>
+        ) : (
+          <form onSubmit={handleCreatePoll}>
+            <label>
+              <input
+                placeholder="Type your question here"
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </label>
+            {/* TODO: add radiobutton for type of question, but I only have single answer question */}
+            <p className="answer-options">Answer Options</p>
+            <label>
+              <input
+                placeholder="Option 1"
+                type="text"
+                value={options[0]}
+                onChange={(e) =>
+                  setOptions([e.target.value, options[1], options[2]])
+                }
+              />
+            </label>
+            <label>
+              <input
+                placeholder="Option 2"
+                type="text"
+                value={options[1]}
+                onChange={(e) => setOptions([options[0], e.target.value])}
+              />
+            </label>
+            <label>
+              <input
+                placeholder="Option 3"
+                type="text"
+                value={options[2]}
+                onChange={(e) =>
+                  setOptions([options[0], options[1], e.target.value])
+                }
+              />
+            </label>
+            <button type="submit" onClick={handleCreatePoll}>
+              Create Poll
+            </button>
+          </form>
+        )}
+
         <button onClick={toggle}>Close</button>
       </div>
     </div>
