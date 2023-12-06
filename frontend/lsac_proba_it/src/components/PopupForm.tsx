@@ -39,7 +39,7 @@ function PopupForm({ name, toggle }: Props) {
         .post("http://localhost:5000/register", {
           email: username,
           password: password,
-          repass: repass,
+          confirmPassword: repass,
         })
         .then((response) => {
           alert(response.data);
