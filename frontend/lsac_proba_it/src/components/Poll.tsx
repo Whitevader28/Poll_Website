@@ -6,6 +6,7 @@ import "./cmp_styles/poll.css";
 function Poll() {
   const [polls, setPolls] = useState([]);
   const [vote_poll_id, setVotePollId] = useState("");
+  const [delete_poll_id, setDeletePollId] = useState("");
 
   axios
     .get("http://localhost:5000/polls")
@@ -36,14 +37,31 @@ function Poll() {
       });
   }
 
-  function handleDelete(e: any) {}
+  function handleDelete(e: any) {
+    e.preventDefault();
+
+    axios
+      .delete(`http://localhost:5000/polls/${delete_poll_id}`, {
+        params: {
+          owner: localStorage.getItem("user_email"),
+        },
+      })
+      .then((response) => {
+        alert(response.data);
+        window.location.reload();
+      })
+      .catch((error) => {
+        alert(error.response.data);
+        console.log("There was an error!", error);
+      });
+  }
 
   return (
     <>
       <div className="poll-body">
         {polls.map((poll, index) => (
           <div className="individual-poll" key={index}>
-            <form onSubmit={handleVote}>
+            <form onSubmit={handleVote} onReset={handleDelete}>
               <div className="radio-form">
                 <div className="question">
                   <strong>{poll.question}</strong>
@@ -60,7 +78,13 @@ function Poll() {
                     if (poll.owner == localStorage.getItem("user_email")) {
                       return (
                         <>
-                          <button className="radio-form-btn" type="button">
+                          <button
+                            className="radio-form-btn"
+                            type="reset"
+                            onClick={() => {
+                              setDeletePollId(poll._id);
+                            }}
+                          >
                             Delete
                           </button>
                         </>

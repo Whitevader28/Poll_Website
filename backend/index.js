@@ -303,9 +303,9 @@ app.post("/polls", async (req, res) => {
   }
 });
 
-app.delete("/polls/:id", authenticateToken, async (req, res) => {
+app.delete("/polls/:id", async (req, res) => {
   const reqBody = req.body;
-  const owner = reqBody.owner;
+  const owner = req.query.owner;
   const pollId = req.params.id;
 
   const ownerId = await getIdByEmail(owner);
