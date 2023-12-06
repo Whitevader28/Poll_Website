@@ -8,14 +8,16 @@ function Poll() {
   const [vote_poll_id, setVotePollId] = useState("");
   const [delete_poll_id, setDeletePollId] = useState("");
 
-  axios
-    .get("http://localhost:5000/polls")
-    .then((response) => {
-      setPolls(response.data);
-    })
-    .catch((error) => {
-      console.error("There was an error!", error);
-    });
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/polls")
+      .then((response) => {
+        setPolls(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  }, []);
 
   function handleVote(e: any) {
     e.preventDefault();
