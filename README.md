@@ -1,4 +1,4 @@
-# ProbaIT-LSAC
+# Poll Website
 
 O aplicatie web a carei scop este colectarea opinilor din cadrul departementului IT.
 
